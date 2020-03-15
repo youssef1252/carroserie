@@ -1,0 +1,44 @@
+<div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title>Log in</mat-card-title>
+    </mat-card-header>
+
+    <form class="example-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-card-content>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Email" type="email" formControlName="email">
+          <mat-error
+            *ngIf="formControls.email.invalid &&
+            (formControls.email.dirty || formControls.email.touched) &&
+            (formControls.email.errors.required)">
+            Email is required.
+          </mat-error>
+          <mat-error *ngIf="formControls.email.invalid &&
+            (formControls.email.dirty || formControls.email.touched) &&
+            (formControls.email.errors.email)">
+            Format email is incorrect.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input type="password" matInput placeholder="Password" formControlName="password">
+          <mat-error *ngIf="formControls.password.invalid &&
+            (formControls.password.dirty || formControls.password.touched) &&
+            (formControls.password.errors.required)">
+            Password is required.
+          </mat-error>
+        </mat-form-field>
+      </mat-card-content>
+      <button [disabled]="!loginForm.valid" mat-stroked-button color="accent" class="btn-block">
+        Log in
+      </button>
+      <br>
+      <br>
+      <mat-spinner *ngIf="loading"  [color]="'accent'" [diameter]="40" style="margin:auto"></mat-spinner>
+      <span *ngIf="error" >{{error}}</span>
+    </form>
+  </mat-card>
+
+</div>

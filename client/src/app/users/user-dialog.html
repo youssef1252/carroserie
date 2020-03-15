@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>{{data.user.name}}</h1>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+  <p>do you want realy delete this user?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()" color="warn">Cancel</button>
+  <button mat-raised-button [mat-dialog-close]="data.user" cdkFocusInitial color="primary">Confim</button>
+</div>

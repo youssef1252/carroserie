@@ -1,0 +1,164 @@
+<form [formGroup]="userForm" (ngSubmit)="add()" autocomplete="off">
+  <mat-grid-list cols="5" rowHeight="5:2">
+    <mat-grid-tile>
+      <mat-form-field>
+        <input matInput placeholder="Nom et Prénom" formControlName="name" required>
+        <mat-error *ngIf="formControls.name.invalid && (formControls.name.dirty || formControls.name.touched) && (formControls.name.errors.required)">
+          Name Required
+        </mat-error>
+        <mat-error *ngIf="formControls.name.invalid && (formControls.name.dirty || formControls.name.touched) && (formControls.name.errors.minlength)">
+          Name must be at least 5 characters long.
+        </mat-error>
+        <mat-icon matSuffix>account_circle</mat-icon>
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-form-field>
+        <input matInput placeholder="Email" type="email" formControlName="email" required>
+        <mat-error *ngIf="formControls.email.invalid && (formControls.email.dirty || formControls.email.touched) && (formControls.email.errors.required)" >
+          Email Required
+        </mat-error>
+        <mat-error *ngIf="formControls.email.invalid && (formControls.email.dirty || formControls.email.touched) && (formControls.email.errors.email)" >
+          You must tap email format
+        </mat-error>
+        <mat-icon matSuffix>alternate_email</mat-icon>
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-form-field>
+        <input matInput placeholder="Téléphonne" type="number" formControlName="phone" required>
+        <mat-error
+          *ngIf="formControls.phone.invalid && (formControls.phone.dirty || formControls.phone.touched) && (formControls.phone.errors.required)">
+          Phone Required
+        </mat-error>
+        <mat-error
+          *ngIf="formControls.phone.invalid && (formControls.phone.dirty || formControls.phone.touched) && (formControls.phone.errors.minlength)">
+          Name must be at least 10 characters long.
+        </mat-error>
+        <mat-icon matSuffix>contacts</mat-icon>
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-form-field>
+        <input matInput placeholder="Adresse" type="text" formControlName="adress" required>
+        <mat-error
+          *ngIf="formControls.adress.invalid && (formControls.adress.dirty || formControls.adress.touched) && formControls.adress.errors.required">
+          Adresse Required
+        </mat-error>
+        <mat-error
+          *ngIf="formControls.adress.invalid && (formControls.adress.dirty || formControls.adress.touched) && (formControls.adress.errors.maxlength)">
+          Adress must be at least 80 characters long.
+        </mat-error>
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-form-field>
+        <input matInput placeholder="Company name" type="text" formControlName="company" required>
+        <mat-error
+          *ngIf="formControls.company.invalid && (formControls.company.dirty || formControls.company.touched)">
+          company Required.
+        </mat-error>
+        <mat-icon matSuffix>work</mat-icon>
+      </mat-form-field>
+    </mat-grid-tile>
+
+  </mat-grid-list>
+  <div class="center">
+    <button [disabled]="!userForm.valid" mat-raised-button color="primary" class="btn-block">
+      <i class="material-icons">add_circle</i> Ajouter
+    </button>
+  </div>
+</form>
+<div class="clearfix"></div>
+<div class="center">
+  <mat-form-field style="width:50vw">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
+<div class="mat-elevation-z8 center">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="!element.edited else displayInput"> {{element.name}} </span>
+        <ng-template #displayInput>
+          <mat-form-field>
+            <input matInput value="{{element.name}}" (keyup)="edit($event.target.value, element, 'name')">
+          </mat-form-field>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="!element.edited else displayInput"> {{element.email}} </span>
+        <ng-template #displayInput>
+          <mat-form-field>
+            <input matInput value="{{element.email}}" (keyup)="edit($event.target.value, element, 'email')">
+          </mat-form-field>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Type Column -->
+    <ng-container matColumnDef="company">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Company </th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="!element.edited else displayInput"> {{element.company}} </span>
+        <ng-template #displayInput>
+          <mat-form-field>
+            <input matInput value="{{element.company}}" (keyup)="edit($event.target.value, element, 'company')">
+          </mat-form-field>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <!-- Statut Column -->
+    <ng-container matColumnDef="active">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> status </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-chip-list aria-label="Fish selection">
+          <mat-chip *ngIf="element.active else tempalteDesactive" color="primary" selected (click)="edit(false, element, 'active')" style="cursor: pointer;">
+            Active
+          </mat-chip>
+          <ng-template #tempalteDesactive><mat-chip color="accent" selected (click)="edit(true, element, 'active')" style="cursor: pointer;">
+            Desactive
+          </mat-chip></ng-template>
+        </mat-chip-list>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="solde">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Solde (DH) </th>
+      <td mat-cell *matCellDef="let element"> {{element.solde}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-chip color="" selected matTooltip="Edit {{element.name}}" style="margin-right:0.2rem;cursor:pointer;"
+          (click)="modeEdit(element)">
+          <i class="material-icons">edit</i>
+        </mat-chip>
+        <mat-chip color="warn" selected matTooltip="Delete {{element.name}}" style="margin-left:0.2rem;cursor:pointer;"
+          (click)="openDialog(element)">
+          <i class="material-icons">delete</i>
+        </mat-chip>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

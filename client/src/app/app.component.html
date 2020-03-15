@@ -1,0 +1,38 @@
+<mat-drawer-container [ngClass]="{'login':!currentUser}" class="container" autosize>
+  <div class="sidenav-content">
+    <mat-toolbar color="primary" *ngIf="currentUser">
+      <mat-toolbar-row>
+        <span>Carroserie Kenitra</span>
+        <span class="spacer"></span>
+        <span style="margin-right: 12px;">{{currentUser.name}}</span>
+        <mat-icon mat-raised-button matTooltip='{{currentUser.name}}'
+            aria-label="Button that displays a tooltip when focused or hovered over">account_circle</mat-icon>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_verte</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>face</mat-icon>
+            <span>Profile</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>fingerprint</mat-icon>
+            <span>Change password</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>power_settings_new</mat-icon>
+            <a class="nav-item nav-link" (click)="logout()"><span>Deconnexion</span></a>
+          </button>
+        </mat-menu>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <nav mat-tab-nav-bar *ngIf="currentUser">
+      <a mat-tab-link *ngFor="let link of navLinks" [routerLink]="link.link" routerLinkActive #rla="routerLinkActive"
+        [active]="rla.isActive">
+        <mat-icon class="tab-icon">{{link.icon}}</mat-icon>
+        {{link.label}}
+      </a>
+    </nav>
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container>

@@ -1,0 +1,125 @@
+<mat-card class="center client-car-case">
+  <mat-card-header>
+    <mat-icon mat-card-avatar matSuffix>account_circle</mat-icon>
+    <mat-card-title>Client</mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <form class="center" [formGroup]="usersFrom">
+      <mat-grid-list cols="12" rowHeight="100px">
+
+        <mat-grid-tile colspan="3" rowspan="1">
+          <mat-form-field class="cars-full-width">
+            <input matInput placeholder="Nom et prénom" aria-label="Nom et prénom" [matAutocomplete]="auto"
+              formControlName="usersFormNameUser" (change)="handleEmptyInput($event)">
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectionChanged($event)">
+              <mat-option *ngFor="let user of filteredUsers | async" [value]="user.name">
+                <img class="example-option-img" aria-hidden [src]="user.picture" height="25">
+                <span>{{user.name}}</span>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="3" rowspan="1">
+          <mat-form-field class="cars-full-width">
+            <input matInput placeholder="Adresse mail" aria-label="Adresse mail" formControlName="usersFormEmailUser"
+              autocomplete="off">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="3" rowspan="1">
+          <mat-form-field class="cars-full-width">
+            <input matInput placeholder="Téléphone" aria-label="Téléphone" formControlName="usersFormTelUser"
+              autocomplete="off">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="3" rowspan="1">
+          <mat-form-field class="cars-full-width">
+            <input matInput placeholder="Société" aria-label="Société" formControlName="usersFormSocieteUser"
+              autocomplete="off">
+          </mat-form-field>
+        </mat-grid-tile>
+
+      </mat-grid-list>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="center client-car-case" *ngIf="displayPanel">
+  <mat-card-header>
+    <mat-icon mat-card-avatar matSuffix>local_car_wash</mat-icon>
+    <mat-card-title>Voiture</mat-card-title>
+  </mat-card-header>
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <form class="center" [formGroup]="carsForm" (ngSubmit)="add()" autocomplete="off">
+      <mat-grid-list cols="12" rowHeight="100px">
+
+        <mat-grid-tile colspan="3" rowspan="1">
+          <mat-form-field class="cars-full-width">
+            <mat-label>Marque</mat-label>
+            <mat-select formControlName="mark" (selectionChange)=changeValuesMarque()>
+              <mat-option *ngFor="let mark of marks" [value]="mark._id" required>
+                {{mark.name}}
+              </mat-option>
+            </mat-select>
+            <input matInput [hidden]="true" aria-label="user" formControlName="user">
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="3" rowspan="1">
+          <mat-form-field class="cars-full-width">
+            <mat-label>Modéle</mat-label>
+            <mat-select formControlName="modele" required>
+              <mat-option *ngFor="let modele of modeles" [value]="modele._id">
+                {{modele.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="3" rowspan="1">
+          <mat-form-field class="cars-full-width">
+            <input matInput placeholder="Numéro Chassis" aria-label="chassis" formControlName="chassis" autocomplete="off" required>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="3" rowspan="1">
+          <mat-form-field class="cars-full-width">
+            <input matInput placeholder="Immatriculation" aria-label="immatriculation" formControlName="immatriculation" autocomplete="off" required>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="3" rowspan="1">
+          <mat-form-field class="cars-full-width">
+            <input matInput placeholder="Circulation" aria-label="circulation" formControlName="circulation" autocomplete="off" required>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="3" rowspan="1">
+          <mat-form-field class="cars-full-width">
+            <mat-label>Moteur</mat-label>
+            <mat-select formControlName="moteur" required>
+              <mat-option *ngFor="let moteur of moteurs" [value]="moteur.value">
+                {{moteur.text}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="3" rowspan="1">
+          <mat-form-field class="cars-full-width">
+            <input matInput placeholder="Couleur" aria-label="couleur" formControlName="couleur" autocomplete="off" required>
+          </mat-form-field>
+        </mat-grid-tile>
+      </mat-grid-list>
+      <div class="center">
+        <button [disabled]="!carsForm.valid" mat-raised-button color="primary" class="btn-block">
+          <i class="material-icons">add_circle</i> Ajouter
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
