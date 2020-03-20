@@ -7,10 +7,12 @@ import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { ModelesService } from './../services/modeles.service';
 import { MarksService } from './../services/marks.service';
 import { UsersService } from '../services/users.service';
+import { CarsService } from './../services/cars.service';
 
 import { Mark } from './../models/mark';
 import { User } from '../models/user';
 import { Modele } from '../models/modele';
+import { Car } from '../models/car';
 
 @Component({
   selector: 'app-cars',
@@ -22,6 +24,7 @@ export class CarsComponent implements OnInit, OnDestroy {
   users: User[];
   marks: Mark[];
   modeles: Modele[];
+  car: Car;
   filteredUsers: Observable<User[]>;
   usersFrom: FormGroup;
   carsForm: FormGroup;
@@ -37,6 +40,7 @@ export class CarsComponent implements OnInit, OnDestroy {
     private userService: UsersService,
     private marksService: MarksService,
     private modeleService: ModelesService,
+    private carService: CarsService,
     private fb: FormBuilder
   ) {
     this.prepareForm();
@@ -57,7 +61,7 @@ export class CarsComponent implements OnInit, OnDestroy {
   onSelectionChanged(event: MatAutocompleteSelectedEvent) {
     const userSelected = this.users.filter(user => user.name === event.option.value)[0];
     this.handleInput(userSelected);
-    this.formControls.user.setValue(userSelected.id);
+    this.formControls.user.setValue(userSelected._id);
     this.displayPanel = true;
   }
 
@@ -76,6 +80,24 @@ export class CarsComponent implements OnInit, OnDestroy {
   changeValuesMarque() {
     const id = this.formControls.mark.value;
     this.loadModeles(id);
+  }
+
+  add() {
+    const inputs = this.formControls;
+    this.car = {
+      user: inputs.user.value,
+      modele: inputs.modele.value,
+      mark: inputs.mark.value,
+      chassis: inputs.chassis.value,
+      immatriculation: inputs.immatriculation.value,
+      circulation: inputs.circulation.value,
+      moteur: inputs.moteur.value,
+      couleur: inputs.couleur.value
+    };
+    this.carService.carAdd(this.car).subscribe(car => {
+      console.log(car);
+    });
+    console.log(this.car);
   }
 
   private loadUsersMarks() {
@@ -169,11 +191,6 @@ export class CarsComponent implements OnInit, OnDestroy {
     .subscribe(modeles => {
       this.modeles = modeles.filter(modele => modele.active);
     });
-  }
-
-  add() {
-    const inputs = this.formControls;
-    console.log(inputs);
   }
 
 }
