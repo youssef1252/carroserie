@@ -6,5 +6,7 @@ export const config = {
   userAdd: `${url}/auth/register`,
   user: `${url}/user`,
   marks: `${url}/marks`,
-  modelesByMark: `${url}/modeles`
+  modelesByMark: `${url}/modeles`,
+  cars: `${url}/cars`,
+  car: `${url}/car`
 };
