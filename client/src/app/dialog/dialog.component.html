@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+  <p>{{data.message}}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()" color="warn">Annuler</button>
+  <button mat-raised-button [mat-dialog-close]="data.user" cdkFocusInitial color="primary">Valider</button>
+</div>
