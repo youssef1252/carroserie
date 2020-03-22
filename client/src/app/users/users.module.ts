@@ -7,7 +7,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 // users
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersComponent } from './users.component';
-import { DialogComponent } from './dialog.component';
 // end users
 
 // Material
@@ -19,7 +18,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -29,8 +27,7 @@ import { MatListModule } from '@angular/material/list';
 @NgModule({
   declarations: [
     // users
-    UsersComponent,
-    DialogComponent
+    UsersComponent
   ],
   imports: [
     // angular
@@ -47,12 +44,9 @@ import { MatListModule } from '@angular/material/list';
     MatChipsModule,
     MatButtonModule,
     MatTooltipModule,
-    MatDialogModule,
-    MatDividerModule,
     MatSortModule,
     MatPaginatorModule,
     MatListModule
-  ],
-  entryComponents: [DialogComponent]
+  ]
 })
 export class UsersModule { }

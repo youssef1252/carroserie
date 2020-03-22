@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material';
 
 import { UsersService } from '../services/users.service';
 import { User } from '../models/user';
-import { DialogComponent } from './dialog.component';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-users',
@@ -70,8 +70,8 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   openDialog(user: any): void {
     const dialogRef = this.dialog.open(DialogComponent, {
-      width: '250px',
-      data: { user }
+      width: '400px',
+      data: { title: user.name, type: 'user', message: 'Voulez-vous supprimer cette utilisateur?' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
