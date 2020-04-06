@@ -7,18 +7,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 // users
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersComponent } from './users.component';
+import { DataListedComponent } from '../data-listed/data-listed.component';
 // end users
 
 // Material
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatFormFieldModule } from '@angular/material/form-field';
+// import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatDividerModule } from '@angular/material/divider';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatListModule } from '@angular/material/list';
@@ -27,7 +27,8 @@ import { MatListModule } from '@angular/material/list';
 @NgModule({
   declarations: [
     // users
-    UsersComponent
+    UsersComponent,
+    DataListedComponent
   ],
   imports: [
     // angular
@@ -38,7 +39,7 @@ import { MatListModule } from '@angular/material/list';
     // material
     MatIconModule,
     MatGridListModule,
-    MatFormFieldModule,
+    // MatFormFieldModule,
     MatInputModule,
     MatTableModule,
     MatChipsModule,

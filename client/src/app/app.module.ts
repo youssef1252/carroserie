@@ -13,6 +13,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatChipsModule } from '@angular/material/chips';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -41,6 +42,7 @@ import { DialogComponent } from './dialog/dialog.component';
     MatTabsModule,
     MatDividerModule,
     MatDialogModule,
+    MatChipsModule,
     AppRoutingModule
   ],
   providers: [
