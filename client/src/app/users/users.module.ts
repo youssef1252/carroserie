@@ -2,52 +2,41 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-// end material
+// end angular
 
 // users
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersComponent } from './users.component';
-import { DataListedComponent } from '../data-listed/data-listed.component';
 // end users
 
 // Material
 import { MatGridListModule } from '@angular/material/grid-list';
-// import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
-import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatSortModule } from '@angular/material/sort';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatListModule } from '@angular/material/list';
 // end material
+
+// module data-list
+import { DataListedModule } from '../data-listed/data-listed.module';
+// end module data-list
 
 @NgModule({
   declarations: [
     // users
     UsersComponent,
-    DataListedComponent
   ],
   imports: [
-    // angular
+    // Angular
     CommonModule,
     ReactiveFormsModule,
-    // users
+    DataListedModule,
+    // Users
     UsersRoutingModule,
-    // material
+    // // Material
     MatIconModule,
     MatGridListModule,
-    // MatFormFieldModule,
     MatInputModule,
-    MatTableModule,
-    MatChipsModule,
-    MatButtonModule,
-    MatTooltipModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatListModule
+    MatButtonModule
   ]
 })
 export class UsersModule { }

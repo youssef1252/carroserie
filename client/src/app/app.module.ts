@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // material section
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -13,7 +13,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatChipsModule } from '@angular/material/chips';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -33,6 +32,7 @@ import { DialogComponent } from './dialog/dialog.component';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    // Material
     MatButtonModule,
     MatIconModule,
     MatSidenavModule,
@@ -42,7 +42,7 @@ import { DialogComponent } from './dialog/dialog.component';
     MatTabsModule,
     MatDividerModule,
     MatDialogModule,
-    MatChipsModule,
+    // App
     AppRoutingModule
   ],
   providers: [
