@@ -5,7 +5,7 @@
   </mat-card-header>
   <mat-divider></mat-divider>
   <mat-card-content>
-    <form class="center" [formGroup]="usersFrom">
+    <form class="center" [formGroup]="usersFrom" autocomplete="off">
       <mat-grid-list cols="12" rowHeight="100px">
 
         <mat-grid-tile colspan="3" rowspan="1">
@@ -123,3 +123,5 @@
     </form>
   </mat-card-content>
 </mat-card>
+
+<app-data-listed [data]="cars" [type]='type'></app-data-listed>

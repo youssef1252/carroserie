@@ -25,16 +25,19 @@ export class CarsComponent implements OnInit, OnDestroy {
   marks: Mark[];
   modeles: Modele[];
   car: Car;
+  cars: Car[];
   filteredUsers: Observable<User[]>;
   usersFrom: FormGroup;
   carsForm: FormGroup;
   displayPanel = false;
   userMarksSubscribe: any;
   ModelesSubscribe: any;
+  carsSubscribe: any;
   moteurs = [
     { value: 'diesel', text: 'Diesel' },
     { value: 'essence', text: 'Essence' }
   ];
+  type = 'cars';
 
   constructor(
     private userService: UsersService,
@@ -50,6 +53,7 @@ export class CarsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadUsersMarks();
+    this.loadCars();
   }
 
   ngOnDestroy() {
@@ -95,9 +99,9 @@ export class CarsComponent implements OnInit, OnDestroy {
       couleur: inputs.couleur.value
     };
     this.carService.carAdd(this.car).subscribe(car => {
-      console.log(car);
+      this.loadCars();
+      this.prepareForm();
     });
-    console.log(this.car);
   }
 
   private loadUsersMarks() {
@@ -191,6 +195,15 @@ export class CarsComponent implements OnInit, OnDestroy {
     .subscribe(modeles => {
       this.modeles = modeles.filter(modele => modele.active);
     });
+  }
+
+  private loadCars() {
+    this.carsSubscribe = this.carService.getAll()
+    .subscribe(
+      cars => {
+        this.cars = cars;
+      }
+    );
   }
 
 }

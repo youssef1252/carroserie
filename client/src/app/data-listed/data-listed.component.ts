@@ -4,7 +4,6 @@ import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 
-import { User } from '../models/user';
 import { UsersService } from '../services/users.service';
 
 @Component({
@@ -17,7 +16,9 @@ export class DataListedComponent implements OnInit, OnChanges {
   dataSource;
   displayedColumns: string[];
   dataDetails = {
-    users: ['name', 'email', 'company', 'active', 'solde', 'actions']
+    users: ['name', 'email', 'company', 'active', 'solde', 'actions'],
+    cars: ['mark', 'chassis', 'immatriculation', 'circulation', 'moteur', 'actions']
+    // cars: ['mark', 'modele', 'chassis', 'immatriculation', 'circulation', 'moteur', 'couleur', 'user', 'actions']
   };
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -33,15 +34,19 @@ export class DataListedComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.data) {
+    if (changes.data.currentValue) {
+      console.log(this.data);
       this.createTable(this.data);
     }
   }
 
-  openDialog(user: any): void {
+  openDialog(data: any): void {
     let dataDisplay = {};
     if (this.type === 'users') {
-      dataDisplay = { title: user.name, type: 'user', message: 'Voulez-vous supprimer cette utilisateur?', item: user };
+      dataDisplay = { title: data.name, type: 'user', message: 'Voulez-vous supprimer cette utilisateur?', item: data };
+    } else if (this.type === 'cars') {
+      const titlePop = data.mark.name + '-' + data.modele.name + ' (' + data.immatriculation + ')';
+      dataDisplay = { title: titlePop, type: 'car', message: 'Voulez-vous supprimer cette voiture?', item: data };
     }
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '400px',
